@@ -1,29 +1,36 @@
 public class Threadilicious {
     public static void main(String[] args) {
 
-        Thread thread1 = new Thread(() -> print('*', 1000));
-        Thread thread2 = new Thread(() -> print('$', 100));
-        //thread2.setDaemon(true);
+        Thread camera = new Thread(() -> print("Take picture", 100));
+        Thread printer = new Thread(() -> print("Print picture", 100));
+        camera.setDaemon(true);
 
-        thread1.setName("T1");
-        thread2.setName("T2");
-        thread1.start();
-        thread2.start();
-
+        camera.setName("T1");
+        printer.setName("T2");
 
         try {
-            Thread.sleep(1000);
-            thread1.interrupt();
-            Thread.sleep(1000);
-            thread2.interrupt();
-        }catch (InterruptedException e){
+            camera.start();
+            camera.join(2000);
+            printer.start();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+
+
+//        try {
+//            Thread.sleep(1000);
+//            thread1.interrupt();
+//            Thread.sleep(1000);
+//            printer.interrupt();
+//        }catch (InterruptedException e){
+//            e.printStackTrace();
+//        }
         //print('@', 100);
 
 //        //with implementing runnable
-//        Thread thread2=new Thread(new MyPersonalRunnable('@', 1000));
-//        Thread thread2=new Thread(new MyPersonalRunnable('+', 10000));
+//        Thread printer=new Thread(new MyPersonalRunnable('@', 1000));
+//        Thread printer=new Thread(new MyPersonalRunnable('+', 10000));
 //
 //        Thread thread3 = new Thread(() ->print('%', 1000));
 
@@ -37,13 +44,13 @@ public class Threadilicious {
 
 //start() is the only way to multithread. run() just calls the method and runs it consecutively.
 
-        //thread2.start();
-//        thread2.start();
-//        thread2.setDaemon(true);
+        //printer.start();
+//        printer.start();
+//        printer.setDaemon(true);
 //        thread3.start();
 //        try {
 //            Thread.sleep(20000);
-//            thread2.interrupt();
+//            printer.interrupt();
 //            Thread.sleep(20000);
 //            thread3.interrupt();
 //        } catch (InterruptedException e) {
@@ -58,9 +65,9 @@ public class Threadilicious {
 
     }
 
-    public static void print(char sign, int count){
+    public static void print(String sign, int count){
         for(int i = 0; i < count; i++){
-            System.out.println(sign);
+            System.out.println(i + " " + sign);
 
             try {
                 Thread.sleep(100);

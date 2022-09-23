@@ -1,6 +1,5 @@
 public class TimeBomb implements Runnable {
-    int secsOnBomb;
-
+    private int secsOnBomb;
     private Thread thread;
 
     public TimeBomb(int secsOnBomb) {
@@ -24,7 +23,7 @@ public class TimeBomb implements Runnable {
 
     @Override
     public void run() {
-        for(int i = secsOnBomb; i > 0; i--){
+        for (int i = secsOnBomb; i >= 0; i--) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -33,10 +32,10 @@ public class TimeBomb implements Runnable {
             System.out.println("Timebomb ticking: " + i + " seconds left");
         }
         System.out.println("Kabooooooom!!");
-    }
+        }
 
     public void deactivate(){
-
         System.out.println("Disarmed");
+       // thread.interrupt();
     }
 }
